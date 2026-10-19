@@ -17,7 +17,7 @@ Before submitting text to Grammarly, use the supported browser tool to inspect `
 | Login/sign-up screen | Leave the official login page open and ask the user to sign in in their browser, then resume after a fresh state check. |
 | User has no account | Explain that Grammarly checks require an account and account-specific feature access. Offer Codex-only editing; leave registration to the user if they want Grammarly. |
 | Signed-in editor | Inspect the requested tool and any availability/upgrade message. Run the available features. |
-| Free account or unavailable paid tool | Report that feature as unavailable for the current account and continue available checks. A Pro badge alone does not prove every requested agent is enabled. |
+| Requested feature shows an availability or upgrade restriction | Report that feature as unavailable for the current account and continue available checks. Free status alone does not mean a feature is unavailable; a Pro badge alone does not prove every requested agent is enabled. |
 | Upgrade, trial, or payment prompt | Do not subscribe or start a trial as part of this skill. Leave that feature unavailable. |
 | Session expires during a check | Pause that check for browser sign-in, preserve the original, then re-verify the editor and submitted text before resuming. |
 
