@@ -8,12 +8,28 @@ This is not a Grammarly MCP server, browser extension, or official Grammarly/Ope
 
 - Codex or another compatible Agent Skills host.
 - A browser-control integration available to the agent, with its documented UI/accessibility or DOM controls. The workflow was exercised with Codex's connected Chrome browser. A terminal-only Codex session without browser tools cannot perform Grammarly checks.
-- Your own signed-in Grammarly account with access to the requested Pro features. Agent availability and UI can vary by account and product version.
-- Git for the installation commands below.
+- A Grammarly account with access to the requested features for Grammarly checks. If you are signed out, the skill pauses for you to sign in on the official site. Without an account, Codex-only editing remains available; Grammarly results do not.
+- Node.js 22.20 or later for the tested `skills@1.7.2` installer, or Git for manual installation.
 
 No Grammarly API credentials, password export, or separate cloud browser account is required. The skill itself has no executable scripts or dependencies.
 
-## Install for one project
+## Install with npx
+
+Run from your project's root for a project-specific installation:
+
+```bash
+npx skills@1.7.2 add jadrk040507/grammarly-pro-skill --skill grammarly-pro --agent codex
+```
+
+For a global installation across your projects:
+
+```bash
+npx skills@1.7.2 add jadrk040507/grammarly-pro-skill --skill grammarly-pro --agent codex --global
+```
+
+These use the third-party [Vercel skills installer](https://github.com/vercel-labs/skills), pinned to the tested version. It installs instructions; it does not sign you into Grammarly or grant browser access. Follow its prompts and review the destination. Project scope uses `.agents/skills`; global Codex scope uses `~/.agents/skills`. Avoid duplicate copies of `grammarly-pro` across skill roots. To disable installer telemetry, prefix the command with `DISABLE_TELEMETRY=1` on macOS/Linux.
+
+## Manual install for one project
 
 Run these commands from your project's root:
 
@@ -24,7 +40,7 @@ git clone --depth 1 https://github.com/jadrk040507/grammarly-pro-skill.git .agen
 
 The skill is discovered for that project. The destination must not already exist. This makes a nested Git checkout; if you want your team to track the files in the parent repository, copy `SKILL.md`, `agents/`, and `references/` into its `.agents/skills/grammarly-pro/` folder from a separate clone instead.
 
-## Install globally for your user
+## Manual global install
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
@@ -51,7 +67,18 @@ You can also request individual operations:
 
 The skill keeps the original, verifies that the whole intended text reached the editor, distinguishes original and revised scores, and reviews proposed rewrites before applying them. Natural-voice edits do not guarantee a particular detector score.
 
+On first use, the skill checks the browser connection, sign-in state, and requested feature access. Sign in yourself on Grammarly's official site; never paste your password or authentication code into the chat. A free account can use only the features Grammarly makes available to it. A missing tool or upgrade prompt is reported explicitly, with no automatic purchase or trial.
+
 ## Update or uninstall
+
+For an npx-managed installation, use the installer rather than Git:
+
+```bash
+npx skills@1.7.2 update grammarly-pro
+npx skills@1.7.2 remove grammarly-pro --agent codex
+```
+
+Use `--global` for the global installation. Keep any local edits before updating or removing a skill.
 
 For a Git-based project install:
 

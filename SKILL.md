@@ -1,11 +1,29 @@
 ---
 name: grammarly-pro
-description: Use when the user requests Grammarly Pro proofreading, plagiarism or AI detection, Grammarly Humanizer, paraphrasing, or natural-voice editing through their signed-in browser.
+description: Use when the user requests Grammarly proofreading, plagiarism or AI detection, Grammarly Humanizer, paraphrasing, or natural-voice editing through their browser, including login and feature availability checks.
 ---
 
 # Grammarly Pro
 
-Use the user's existing Grammarly Pro browser session for Grammarly results and native writing agents. Use Codex for editorial judgment and optional natural-voice revisions. This is a browser workflow, not an official Grammarly MCP or an API integration.
+Use the user's Grammarly browser session for Grammarly results and native writing agents, checking login and available features first. Use Codex for editorial judgment and optional natural-voice revisions. This is a browser workflow, not an official Grammarly MCP or an API integration. Installing it does not create an account or unlock paid features.
+
+## Login and feature checks
+
+Before submitting text to Grammarly, use the supported browser tool to inspect `https://app.grammarly.com/` or the user's supplied Grammarly document.
+
+| Observed state | Next action |
+| --- | --- |
+| No browser-control tool or disconnected browser | Explain the missing connection. Continue requested Codex-only editing when possible; do not claim Grammarly checks ran. |
+| Login/sign-up screen | Leave the official login page open and ask the user to sign in in their browser, then resume after a fresh state check. |
+| User has no account | Explain that Grammarly checks require an account and account-specific feature access. Offer Codex-only editing; leave registration to the user if they want Grammarly. |
+| Signed-in editor | Inspect the requested tool and any availability/upgrade message. Run the available features. |
+| Free account or unavailable paid tool | Report that feature as unavailable for the current account and continue available checks. A Pro badge alone does not prove every requested agent is enabled. |
+| Upgrade, trial, or payment prompt | Do not subscribe or start a trial as part of this skill. Leave that feature unavailable. |
+| Session expires during a check | Pause that check for browser sign-in, preserve the original, then re-verify the editor and submitted text before resuming. |
+
+The user enters passwords, one-time codes, and recovery details directly on the official login flow. Do not ask for them in chat or retrieve them from browser storage. Do not create accounts, accept new terms, or solve CAPTCHAs on the user's behalf. A known identity-provider redirect can be part of the official login flow; leave it to the user and verify the return to Grammarly before submitting text.
+
+Do not deliberately sign the user out to test login. Test signed-out handling with a hypothetical or isolated scenario. Mark a login tab for handoff when the browser tool supports it. Existing authorization to use Grammarly persists after sign-in; do not ask again for the same routine check.
 
 ## Choose the operation
 
