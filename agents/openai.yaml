@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grammarly Pro"
+  short_description: "Proofread, check originality, and refine your voice"
+  default_prompt: "Use $grammarly-pro to proofread my draft, check AI and plagiarism results, and improve its natural voice while preserving facts and citations."

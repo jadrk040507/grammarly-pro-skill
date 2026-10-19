@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.pdf
+*.docx
+verification/
+__pycache__/
+.DS_Store
